@@ -1,17 +1,23 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Banner from '../components/Banner'
 import { Link } from 'react-router-dom'
 import firebase from '../services/FirebaseConnect'
+import Button from '@material-ui/core/Button';
+
 export default function Home() {
 
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
+    
+    
+    
+    
     
     const login = () => {
         firebase
             .auth()
-            .signInWithEmailAndPassword(
-                "marcos.santos@imed.edu.br", "123456"
-            )
+            .signInWithEmailAndPassword(email, password)
             .then(retorno => {
                 console.log("Usuário Logado: " + retorno.user.uid)
             })
@@ -34,15 +40,14 @@ export default function Home() {
                     <div className="flex flex-2">
                         <article>
                             <div className="quadradoRegistro">
-                                <input type="text" placeholder="Email" id="txtEmail" />
+                                <input type="email" placeholder="Email" id="txtEmail" value={email} onChange={(e) => setEmail(e.target.value)} />
                                 <br />
-                                <input type="text" placeholder="Password" id="txtSenha" />
+                                <input type="password" placeholder="Password" id="txtSenha" value={password} onChange={(e) => setPassword(e.target.value)} />
                                 <br />
                             </div>
-                            <button>
-                                onClick={login}
+                            <Button variant="contained" color="secundary" onClick={login}>
                                 Login
-                            </button>   
+                        </Button>   
                         </article>
                         <article>
                             <div className="image fit">
