@@ -11,23 +11,37 @@ import Planets from './pages/Planets'
 import Species from './pages/Species'
 import Login from './pages/Login'
 
-import { HashRouter, Switch, Route } from 'react-router-dom'
+import { HashRouter, Switch, Route, Redirect } from 'react-router-dom'
 
 
 function App() {
 
+  const PrivateRoute = ({component: Component, ...rest })=> {
+    return <Route
+      render={(props => {
+        let isAuthenticated = sessionStorage.getItem("uuid")
+        if (isAuthenticated) {
+          return <Component {...props} />
+        } else {
+          return <Redirect to={{pathname: "/login"}} />
+        }
+      })}
+    />
+  }
+  
+  
   return (
     <>
       <HashRouter>
         <Header />
         <Switch>
           <Route path="/" exact={true} component={Home} />
-          <Route path="/films" component={Films} />
-          <Route path="/starships" component={Startships} />
-          <Route path="/people" component={People} />
-          <Route path="/planets" component={Planets} />
-          <Route path="/species" component={Species} />
           <Route path="/login" component={Login} />
+          <PrivateRoute path="/films" component={Films} />
+          <PrivateRoute path="/starships" component={Startships} />
+          <PrivateRoute path="/people" component={People} />
+          <PrivateRoute path="/planets" component={Planets} />
+          <PrivateRoute path="/species" component={Species} />         
         </Switch>
       </HashRouter>
       <Footer />
