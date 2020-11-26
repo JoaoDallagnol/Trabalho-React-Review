@@ -4,11 +4,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 
 import Home from './pages/Home'
-import Films from './pages/Films'
-import Startships from './pages/Starships'
-import People from './pages/People'
-import Planets from './pages/Planets'
-import Species from './pages/Species'
+import Reviews from './pages/Reviews'
 import Login from './pages/Login'
 
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom'
@@ -16,7 +12,7 @@ import { HashRouter, Switch, Route, Redirect } from 'react-router-dom'
 
 function App() {
 
-  const PrivateRoute = ({component: Component, ...rest })=> {
+  const PrivateRoute = ({component: Component,})=> {
     return <Route
       render={(props => {
         let isAuthenticated = sessionStorage.getItem("uuid")
@@ -37,11 +33,7 @@ function App() {
         <Switch>
           <Route path="/" exact={true} component={Home} />
           <Route path="/login" component={Login} />
-          <PrivateRoute path="/films" component={Films} />
-          <PrivateRoute path="/starships" component={Startships} />
-          <PrivateRoute path="/people" component={People} />
-          <PrivateRoute path="/planets" component={Planets} />
-          <PrivateRoute path="/species" component={Species} />         
+          <PrivateRoute path="/films" component={Reviews} />       
         </Switch>
       </HashRouter>
       <Footer />

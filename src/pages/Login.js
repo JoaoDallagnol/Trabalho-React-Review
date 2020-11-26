@@ -1,10 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useLayoutEffect} from 'react'
 
 import Banner from '../components/Banner'
-import { Link } from 'react-router-dom'
+import { Link, useHistory} from 'react-router-dom'
 import firebase from '../services/FirebaseConnect'
-import Button from '@material-ui/core/Button'
-import {useHistory} from 'react-router-dom'
+import {Button, Checkbox} from '@material-ui/core/'
 
 export default function Home() {
 
@@ -12,6 +11,18 @@ export default function Home() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [msg, setMsg] = useState("")
+    const [lembreme, setLembreme] = useState(false)
+
+
+    useLayoutEffect(() => {
+        let emailStorage = localStorage.getItem("email")
+        let passwordStorage = localStorage.getItem("password")
+        if (emailStorage && passwordStorage) {
+            setEmail(emailStorage)
+            setPassword(passwordStorage)
+            setLembreme(true)
+        }    
+    }, [])
 
     
     
@@ -19,11 +30,21 @@ export default function Home() {
     
     
     const login = () => {
+        if (lembreme === false) {
+            localStorage.removeItem("email")
+            localStorage.removeItem("password")
+        }
+        
+        
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
             .then(retorno => {
                 sessionStorage.setItem("uuid", retorno.user.uid)
+                if (lembreme === true) {
+                    localStorage.setItem("email", email)
+                    localStorage.setItem("password", password)
+                }      
                 setMsg("")
                 history.push("/")
             })
@@ -53,9 +74,11 @@ export default function Home() {
                                 <br />
                             {msg}
                             </div>
-                            <Button variant="contained" color="secundary" onClick={login}>
+                            <Button variant="contained" color="primary" onClick={login}>
                                 Login
-                        </Button>   
+                            </Button>
+                            <Checkbox checked ={lembreme} onClick={(e) => setLembreme(!lembreme)} inputProps={{ 'arial-label': 'sencondary checkbox'}} />
+                                Lembre-me
                         </article>
                         <article>
                             <div className="image fit">

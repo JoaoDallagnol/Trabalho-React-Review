@@ -18,9 +18,10 @@ export default function Home() {
                                 <img src={require('../images/pic01.jpg')} alt="Pic 01" />
                             </div>
                             <header>
-                                <h3>by João Vítor Dall' Agnol de Oliveira</h3>
+                                <h3>Informações sobre o criador</h3>
                             </header>
-                            <p>RA: 1120461</p>
+                            <p>by João Vítor Dall' Agnol de Oliveira /
+                            RA: 1120461 </p>
                             <p>Email: jvdallagnol2001@gmail.com</p>
                             <footer>
                                 <Link to="/" className="button special">More</Link>
@@ -31,9 +32,9 @@ export default function Home() {
                                 <img src={require('../images/pic02.jpg')} alt="Pic 02" />
                             </div>
                             <header>
-                                <h3>Fãs de StarWars</h3>
+                                <h3>Como funciona?</h3>
                             </header>
-                            <p>Site desenvolvido como uma enciclopédia para fãs de StarWars</p>
+                            <p>Site desenvolvido para publicações de rieview, faça seu login para acessar a página na aba "Reviews"</p>
                             <p>.</p>
                             <footer>
                                 <Link to="/" className="button special">More</Link>
